@@ -3,6 +3,8 @@ package com.personal.nutdanai.rxandroidretrofit;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.personal.nutdanai.rxandroidretrofit.models.Post;
 import com.personal.nutdanai.rxandroidretrofit.service.Service;
 
@@ -35,6 +37,7 @@ class MainPresenter {
                     @Override
                     public void onNext(Post post) {
                         Log.d(MainPresenter.this.getClass().getSimpleName(), "onNext");
+                        logAsJsonStringUsingObject(post);
                     }
 
                     @Override
@@ -47,6 +50,12 @@ class MainPresenter {
                         Log.d(MainPresenter.this.getClass().getSimpleName(), "onComplete");
                     }
                 });
+    }
+
+    private void logAsJsonStringUsingObject(Object object){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(object);
+        Log.d(MainPresenter.this.getClass().getSimpleName(), json);
     }
 
 
