@@ -105,6 +105,8 @@ public class MainPresenter {
                     public void onError(Throwable e) {
                         Log.d(MainPresenter.this.getClass().getSimpleName(), "Method: getBadRequest ~> onError");
                         if (e instanceof HttpException) {
+                            Integer statusCode = ((HttpException) e).response().code();
+                            Log.d(MainPresenter.this.getClass().getSimpleName(), "Method: getBadRequest ~> status code: " + statusCode);
                             ResponseBody errResponse = ((HttpException) e).response().errorBody();
                             Converter<ResponseBody, Error> converter = service.getRetrofit().responseBodyConverter(Error.class, new Annotation[0]);
                             try {
